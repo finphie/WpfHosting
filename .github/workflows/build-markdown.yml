@@ -1,0 +1,23 @@
+name: Build(Markdown)
+
+on:
+  pull_request:
+    paths:
+      - '**/*.md'
+      - .markdownlint.yml
+      - .github/workflows/build-markdown.yml
+
+jobs:
+  lint:
+    name: Lint
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Install markdownlint-cli
+        run: sudo npm install -g markdownlint-cli
+
+      - name: Lint markdown
+        run: markdownlint '**/*.md'
