@@ -2,12 +2,13 @@
 
 [![Build(.NET)](https://github.com/finphie/WpfHosting/actions/workflows/build-dotnet.yml/badge.svg)](https://github.com/finphie/WpfHosting/actions/workflows/build-dotnet.yml)
 [![NuGet](https://img.shields.io/nuget/v/WpfHosting?color=0078d4&label=NuGet)](https://www.nuget.org/packages/WpfHosting/)
+[![Azure Artifacts](https://feeds.dev.azure.com/finphie/7af9aa4d-c550-43af-87a5-01539b2d9934/_apis/public/Packaging/Feeds/18cbb017-6f1d-41eb-b9a5-a6dbf411e3f7/Packages/ea55a98f-3510-4b2e-9ef1-a9c04bf6a92f/Badge)](https://dev.azure.com/finphie/Main/_packaging?_a=package&feed=18cbb017-6f1d-41eb-b9a5-a6dbf411e3f7&package=ea55a98f-3510-4b2e-9ef1-a9c04bf6a92f&preferRelease=true)
 
 WPFアプリケーションの構築を行うライブラリです。
 
 ## 説明
 
-Minimal APIとMicrosoft.Extensions.DependencyInjectionを使用したWPFアプリケーションの構築を行うライブラリです。
+Minimal APIとMicrosoft.Extensions.DependencyInjectionを使用した、WPFアプリケーションの構築を行うライブラリです。
 
 ## インストール
 
