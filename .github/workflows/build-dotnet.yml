@@ -58,7 +58,7 @@ jobs:
             $os = '["windows-latest"]'
           }
 
-          Write-Output '::set-output name=os::$os'
+          Write-Output "::set-output name=os::$os"
 
   test:
     name: Test
