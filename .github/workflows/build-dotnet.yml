@@ -27,7 +27,6 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       dotnet: ${{ steps.check-file.outputs.dotnet }}
-      gui: ${{ steps.check-platform.outputs.gui }}
       os: ${{ steps.settings.outputs.os }}
 
     steps:
@@ -95,12 +94,7 @@ jobs:
           dotnet-version: 6.0.x
 
       - name: .NET Build
-        if: needs.check.outputs.gui != 'True'
         run: dotnet build --configuration Release -warnAsError
-
-      - name: .NET Build (GUI)
-        if: needs.check.outputs.gui == 'True'
-        run: dotnet build --configuration Release -warnAsError -p:IncludePackageReferencesDuringMarkupCompilation=true
 
       - name: .NET Test
         run: dotnet test --configuration Release --no-build
