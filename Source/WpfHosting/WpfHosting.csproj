@@ -4,11 +4,11 @@
     <TargetFramework>net6.0-windows</TargetFramework>
     <UseWPF>true</UseWPF>
     <IsPackable>true</IsPackable>
-    <Description>Minimal APIとMicrosoft.Extensions.DependencyInjectionを使用したWPFアプリケーションの構築を行うライブラリです。</Description>
   </PropertyGroup>
 
   <PropertyGroup>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <Description>Minimal APIとMicrosoft.Extensions.DependencyInjectionを使用したWPFアプリケーションの構築を行うライブラリです。</Description>
     <PackageTags>WPF</PackageTags>
   </PropertyGroup>
 
