@@ -22,7 +22,7 @@
     <RunAOTCompilation>true</RunAOTCompilation>
   </PropertyGroup>
 
-  <PropertyGroup Condition="$(MSBuildProjectName.EndsWith('_wpftmp')">
+  <PropertyGroup Condition="$(MSBuildProjectName.EndsWith('_wpftmp'))">
     <Nowarn>$(NoWarn);IDE0130</Nowarn>
   </PropertyGroup>
 
