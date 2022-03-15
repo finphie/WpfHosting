@@ -99,6 +99,7 @@ MIT
 
 ### ライブラリ
 
+- [Microsoft.Extensions.Configuration](https://github.com/dotnet/runtime)
 - [Microsoft.Extensions.Configuration.Json](https://github.com/dotnet/runtime)
 - [Microsoft.Extensions.DependencyInjection](https://github.com/dotnet/runtime)
 - [Microsoft.Extensions.Logging](https://github.com/dotnet/runtime)
