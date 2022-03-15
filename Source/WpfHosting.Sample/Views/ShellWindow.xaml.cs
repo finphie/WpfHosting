@@ -5,7 +5,7 @@ namespace WpfHosting.Sample.Views;
 /// <summary>
 /// ShellWindow.xamlの相互作用ロジック
 /// </summary>
-public partial class ShellWindow
+public sealed partial class ShellWindow
 {
     /// <summary>
     /// <see cref="ShellWindow"/>クラスの新しいインスタンスを取得します。

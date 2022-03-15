@@ -55,7 +55,7 @@ ShellWindow.xamlとShellWindow.xaml.csを作成して次のように記述しま
 ```
 
 ```csharp
-public partial class ShellWindow
+public sealed partial class ShellWindow
 {
     public ShellWindow(ShellViewModel viewModel)
     {
