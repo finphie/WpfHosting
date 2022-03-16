@@ -36,7 +36,7 @@ App.xamlとApp.xaml.csを作成して次のように記述します。
 ```
 
 ```csharp
-public partial class App : Application
+public sealed partial class App : Application
 {
     public App() => InitializeComponent();
 }
