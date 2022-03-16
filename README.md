@@ -36,7 +36,9 @@ App.xamlとApp.xaml.csを作成して次のように記述します。
 ```
 
 ```csharp
-public partial class App : Application
+using System.Windows;
+
+public sealed partial class App : Application
 {
     public App() => InitializeComponent();
 }
@@ -56,7 +58,9 @@ ShellWindow.xamlとShellWindow.xaml.csを作成して次のように記述しま
 ```
 
 ```csharp
-public sealed partial class ShellWindow
+using System.Windows;
+
+public sealed partial class ShellWindow : Window
 {
     public ShellWindow(ShellViewModel viewModel)
     {
@@ -70,8 +74,6 @@ Program.csファイルを作成して次のように記述します。
 
 ```csharp
 using WpfHosting;
-using WpfHosting.Sample;
-using WpfHosting.Sample.Views;
 
 var app = WpfApp.CreateDefaultBuilder()
     .UseWpfApp<App, ShellWindow>()

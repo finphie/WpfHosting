@@ -13,7 +13,7 @@ public sealed class WpfApp : IDisposable
     /// <see cref="WpfApp"/>クラスの新しいインスタンスを初期化します。
     /// </summary>
     /// <param name="services">アプリケーションの構成済みサービス</param>
-    /// <exception cref="ArgumentNullException">アプリケーションの構成済みサービスがnullです。</exception>
+    /// <exception cref="ArgumentNullException"><paramref name="services"/>がnullです。</exception>
     internal WpfApp(IServiceProvider services!!)
         => Services = services;
 

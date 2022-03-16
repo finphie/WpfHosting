@@ -16,6 +16,7 @@ public sealed partial class ShellViewModel
     /// </summary>
     /// <param name="logger">ロガー</param>
     /// <param name="settings">設定</param>
+    /// <exception cref="ArgumentNullException"><paramref name="logger"/>または<paramref name="settings"/>がnullです。</exception>
     public ShellViewModel(ILogger<ShellViewModel> logger!!, IOptions<AppSettings> settings!!)
     {
         _logger = logger;

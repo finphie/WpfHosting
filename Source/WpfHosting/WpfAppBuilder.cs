@@ -33,7 +33,7 @@ public sealed class WpfAppBuilder
     }
 
     /// <summary>
-    /// アプリケーションが作成するサービスのコレクションを取得します。
+    /// アプリケーションに関連付けるサービスのコレクションを取得します。
     /// </summary>
     /// <value>
     /// デフォルト設定で作成された場合は、"appsettings.json"の読み取りを設定した<see cref="IServiceCollection"/>を返します。
@@ -41,7 +41,7 @@ public sealed class WpfAppBuilder
     public IServiceCollection Services => _services;
 
     /// <summary>
-    /// アプリケーションが構成する構成プロバイダーを取得します。
+    /// アプリケーションに関連付ける構成プロバイダーを取得します。
     /// </summary>
     /// <value>
     /// <see cref="ConfigurationManager"/>クラスのインスタンスを返します。
@@ -69,7 +69,7 @@ public sealed class WpfAppBuilder
     }
 
     /// <summary>
-    /// <see cref="WpfApp"/>クラスのインスタンスを作成します。
+    /// 構築された設定から<see cref="WpfApp"/>クラスのインスタンスを作成します。
     /// </summary>
     /// <returns><see cref="WpfApp"/>クラスのインスタンスを返します。</returns>
     public WpfApp Build()
