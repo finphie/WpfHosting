@@ -1,11 +1,12 @@
-﻿using WpfHosting.Sample.ViewModels;
+﻿using System.Windows;
+using WpfHosting.Sample.ViewModels;
 
 namespace WpfHosting.Sample.Views;
 
 /// <summary>
 /// ShellWindow.xamlの相互作用ロジック
 /// </summary>
-public sealed partial class ShellWindow
+public sealed partial class ShellWindow : Window
 {
     /// <summary>
     /// <see cref="ShellWindow"/>クラスの新しいインスタンスを取得します。

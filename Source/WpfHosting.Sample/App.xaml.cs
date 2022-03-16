@@ -16,8 +16,7 @@ public sealed partial class App : Application
     /// <see cref="App"/>クラスの新しいインスタンスを初期化します。
     /// </summary>
     /// <param name="logger">ロガー</param>
-    /// <exception cref="ArgumentNullException"><paramref name="logger"/>がnullです。</exception>
-    public App(ILogger<App> logger!!)
+    public App(ILogger<App> logger)
     {
         _logger = logger;
         InitializeComponent();
