@@ -14,8 +14,11 @@ public sealed class WpfApp : IDisposable
     /// </summary>
     /// <param name="services">アプリケーションの構成済みサービス</param>
     /// <exception cref="ArgumentNullException"><paramref name="services"/>がnullです。</exception>
-    internal WpfApp(IServiceProvider services!!)
-        => Services = services;
+    internal WpfApp(IServiceProvider services)
+    {
+        ArgumentNullException.ThrowIfNull(services);
+        Services = services;
+    }
 
     /// <summary>
     /// アプリケーションの構成済みサービスを取得します。

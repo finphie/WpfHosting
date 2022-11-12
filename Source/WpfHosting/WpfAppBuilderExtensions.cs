@@ -18,8 +18,11 @@ public static class WpfAppBuilderExtensions
     /// <param name="configureDelegate">設定を行うデリゲート</param>
     /// <returns><see cref="WpfAppBuilder"/>クラスのインスタンスを返します。</returns>
     /// <exception cref="ArgumentNullException"><paramref name="builder"/>または<paramref name="configureDelegate"/>がnullです。</exception>
-    public static WpfAppBuilder ConfigureServices(this WpfAppBuilder builder!!, Action<IServiceCollection> configureDelegate!!)
+    public static WpfAppBuilder ConfigureServices(this WpfAppBuilder builder, Action<IServiceCollection> configureDelegate)
     {
+        ArgumentNullException.ThrowIfNull(builder);
+        ArgumentNullException.ThrowIfNull(configureDelegate);
+
         configureDelegate(builder.Services);
         return builder;
     }
@@ -31,8 +34,11 @@ public static class WpfAppBuilderExtensions
     /// <param name="configureDelegate">設定を行うデリゲート</param>
     /// <returns><see cref="WpfAppBuilder"/>クラスのインスタンスを返します。</returns>
     /// <exception cref="ArgumentNullException"><paramref name="builder"/>または<paramref name="configureDelegate"/>がnullです。</exception>
-    public static WpfAppBuilder ConfigureServices(this WpfAppBuilder builder!!, Action<IConfiguration, IServiceCollection> configureDelegate!!)
+    public static WpfAppBuilder ConfigureServices(this WpfAppBuilder builder, Action<IConfiguration, IServiceCollection> configureDelegate)
     {
+        ArgumentNullException.ThrowIfNull(builder);
+        ArgumentNullException.ThrowIfNull(configureDelegate);
+
         configureDelegate(builder.Configuration, builder.Services);
         return builder;
     }
@@ -44,8 +50,11 @@ public static class WpfAppBuilderExtensions
     /// <param name="configureDelegate">設定を行うデリゲート</param>
     /// <returns><see cref="WpfAppBuilder"/>クラスのインスタンスを返します。</returns>
     /// <exception cref="ArgumentNullException"><paramref name="builder"/>または<paramref name="configureDelegate"/>がnullです。</exception>
-    public static WpfAppBuilder ConfigureAppConfiguration(this WpfAppBuilder builder!!, Action<IConfigurationBuilder> configureDelegate!!)
+    public static WpfAppBuilder ConfigureAppConfiguration(this WpfAppBuilder builder, Action<IConfigurationBuilder> configureDelegate)
     {
+        ArgumentNullException.ThrowIfNull(builder);
+        ArgumentNullException.ThrowIfNull(configureDelegate);
+
         configureDelegate(builder.Configuration);
         return builder;
     }
@@ -57,8 +66,11 @@ public static class WpfAppBuilderExtensions
     /// <param name="configureDelegate">設定を行うデリゲート</param>
     /// <returns><see cref="WpfAppBuilder"/>クラスのインスタンスを返します。</returns>
     /// <exception cref="ArgumentNullException"><paramref name="builder"/>または<paramref name="configureDelegate"/>がnullです。</exception>
-    public static WpfAppBuilder ConfigureLogging(this WpfAppBuilder builder!!, Action<ILoggingBuilder> configureDelegate!!)
+    public static WpfAppBuilder ConfigureLogging(this WpfAppBuilder builder, Action<ILoggingBuilder> configureDelegate)
     {
+        ArgumentNullException.ThrowIfNull(builder);
+        ArgumentNullException.ThrowIfNull(configureDelegate);
+
         configureDelegate(builder.Logging);
         return builder;
     }
@@ -71,10 +83,12 @@ public static class WpfAppBuilderExtensions
     /// <param name="builder"><see cref="WpfAppBuilder"/>クラスのインスタンス</param>
     /// <returns><see cref="WpfAppBuilder"/>クラスのインスタンスを返します。</returns>
     /// <exception cref="ArgumentNullException"><paramref name="builder"/>がnullです。</exception>
-    public static WpfAppBuilder UseWpfApp<TApplication, TShellWindow>(this WpfAppBuilder builder!!)
+    public static WpfAppBuilder UseWpfApp<TApplication, TShellWindow>(this WpfAppBuilder builder)
         where TApplication : Application
         where TShellWindow : Window
     {
+        ArgumentNullException.ThrowIfNull(builder);
+
         builder.Services.TryAddSingleton<Application, TApplication>();
         builder.Services.TryAddSingleton<Window, TShellWindow>();
 
