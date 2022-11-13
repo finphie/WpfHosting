@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using System.Diagnostics.CodeAnalysis;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 
@@ -7,6 +8,7 @@ namespace WpfHosting;
 /// <summary>
 /// WPFアプリケーションの設定を構築するクラスです。
 /// </summary>
+[SuppressMessage("Design", "CA1001:破棄可能なフィールドを所有する型は、破棄可能でなければなりません", Justification = "App Builder")]
 public sealed class WpfAppBuilder
 {
     readonly WpfApplicationServiceCollection _services = new();
