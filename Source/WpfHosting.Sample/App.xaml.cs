@@ -10,7 +10,7 @@ namespace WpfHosting.Sample;
 /// </summary>
 public sealed partial class App : Application
 {
-    readonly ILogger _logger;
+    readonly ILogger<App> _logger;
 
     /// <summary>
     /// <see cref="App"/>クラスの新しいインスタンスを初期化します。

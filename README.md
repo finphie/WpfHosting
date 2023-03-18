@@ -86,6 +86,7 @@ app.Run();
 
 ## サポートフレームワーク
 
+- .NET 7
 - .NET 6
 
 ## 作者
@@ -102,11 +103,11 @@ MIT
 
 ### ライブラリ
 
-- [Microsoft.Extensions.Configuration](https://github.com/dotnet/runtime)
-- [Microsoft.Extensions.Configuration.Json](https://github.com/dotnet/runtime)
-- [Microsoft.Extensions.DependencyInjection](https://github.com/dotnet/runtime)
-- [Microsoft.Extensions.Logging](https://github.com/dotnet/runtime)
-- [Microsoft.Extensions.Options](https://github.com/dotnet/runtime)
+- Microsoft.Extensions.Configuration
+- Microsoft.Extensions.Configuration.Json
+- Microsoft.Extensions.DependencyInjection
+- Microsoft.Extensions.Logging
+- Microsoft.Extensions.Options
 
 ### テスト
 
