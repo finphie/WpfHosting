@@ -8,7 +8,7 @@ namespace WpfHosting.Sample.ViewModels;
 /// </summary>
 public sealed partial class ShellViewModel
 {
-    readonly ILogger _logger;
+    readonly ILogger<ShellViewModel> _logger;
     readonly AppSettings _settings;
 
     /// <summary>
