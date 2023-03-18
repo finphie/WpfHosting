@@ -14,13 +14,13 @@ Minimal APIとMicrosoft.Extensions.DependencyInjectionを使用した、WPFア�
 
 ### NuGet（正式リリース版）
 
-```console
+```shell
 dotnet add package WpfHosting
 ```
 
 ### Azure Artifacts（開発用ビルド）
 
-```console
+```shell
 dotnet add package WpfHosting -s https://pkgs.dev.azure.com/finphie/Main/_packaging/DotNet/nuget/v3/index.json
 ```
 
