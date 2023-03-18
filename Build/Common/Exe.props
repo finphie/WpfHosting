@@ -1,0 +1,17 @@
+<Project>
+  <!--
+    実行ファイル関連の設定
+    このファイルは、プロジェクトファイルの末尾で直接インポートする必要あり。
+    Directory.Build.propsでインポートした場合、一部のプロパティ設定が機能しない。
+  -->
+
+  <Import Project="$(MSBuildThisFileDirectory)Exe.Platform.props" />
+
+  <Import Condition="'$(IsWinUI)' == 'true'" Project="$(BuildCommonPlatformDirectory)Gui/WinUI.props" />
+  <Import Condition="'$(IsWpf)' == 'true'" Project="$(BuildCommonPlatformDirectory)Gui/Wpf.props" />
+  <Import Condition="'$(IsMaui)' == 'true'" Project="$(BuildCommonPlatformDirectory)Gui/Maui.props" />
+  <Import Condition="'$(IsAspNet)' == 'true'" Project="$(BuildCommonPlatformDirectory)AspNet/AspNet.props" />
+  <Import Condition="'$(IsBlazorWebAssembly)' == 'true'" Project="$(BuildCommonPlatformDirectory)AspNet/BlazorWebAssembly.props" />
+  <Import Condition="'$(IsConsole)' == 'true'" Project="$(BuildCommonPlatformDirectory)Console/Console.props" />
+
+</Project>

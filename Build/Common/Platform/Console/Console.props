@@ -1,0 +1,6 @@
+<Project>
+  <!-- コンソールアプリケーション関連の設定 -->
+
+  <Import Project="$(MSBuildThisFileDirectory)Console.Default.props" />
+
+</Project>
