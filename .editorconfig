@@ -9,13 +9,24 @@ indent_size = 4
 insert_final_newline = true
 trim_trailing_whitespace = true
 
+# C#関連ファイル
+[*.{cs,tt,xaml,razor,cshtml,sln}]
+charset = utf-8-bom
+end_of_line = crlf
+
 # Visual Studio ソリューションファイル
 [*.sln]
 indent_style = tab
 
-# C# プロジェクトファイル
+# C#プロジェクトファイル
+# EditorConfigなしだとUTF-8（WPFプロジェクトはBOM付き）のCRLFになる。
 [*.csproj]
+end_of_line = crlf
 indent_size = 2
+
+# PowerShellファイル
+[*.{ps1,psd1,psm1}]
+charset = utf-8-bom
 
 # XMLファイル
 [*.{props,targets,ruleset,config,pubxml}]
@@ -37,17 +48,12 @@ indent_size = 2
 [*.md]
 trim_trailing_whitespace = false
 
-# C#ファイル
-[*.{cs,razor,cshtml}]
-charset = utf-8-bom
-[*.cs]
-end_of_line = crlf
-
-# T4テンプレートファイル
-[*.tt]
-charset = utf-8-bom
-end_of_line = crlf
-
 # C# 生成コード
 [{*Generated,**/Generated/**}.cs]
 generated_code = true
+
+# Program.cs
+# 理由: トップレベルステートメントで誤検知するため。
+# https://github.com/dotnet/roslyn-analyzers/issues/6141
+[Program.cs]
+dotnet_diagnostic.CA1852.severity = none

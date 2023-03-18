@@ -1,41 +1,46 @@
 <Project>
 
   <PropertyGroup>
-    <LangVersion>preview</LangVersion>
+    <LangVersion>latest</LangVersion>
     <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-    <AnalysisLevel>preview</AnalysisLevel>
-    <AnalysisMode>All</AnalysisMode>
-    <EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
-    <GenerateDocumentationFile>false</GenerateDocumentationFile>
-    <NoWarn>$(NoWarn);SA0001</NoWarn>
     <IsPackable>false</IsPackable>
     <IsPublishable>false</IsPublishable>
-    <Authors>finphie</Authors>
-    <Copyright>© 2022 $(Authors)</Copyright>
+    <AccelerateBuildsInVisualStudio>true</AccelerateBuildsInVisualStudio>
   </PropertyGroup>
 
-  <PropertyGroup Condition="'$(GITHUB_ACTIONS)' == 'true'">
-    <ContinuousIntegrationBuild>true</ContinuousIntegrationBuild>
-  </PropertyGroup>
-
+  <!-- XMLドキュメントファイル関連 -->
   <PropertyGroup>
-    <BuildFileDirectory>$(MSBuildThisFileDirectory)\Build</BuildFileDirectory>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+
+    <!-- 発行時はファイルを出力しない。 -->
+    <PublishDocumentationFiles>false</PublishDocumentationFiles>
   </PropertyGroup>
 
+  <!-- ディレクトリ関連変数の定義 -->
+  <PropertyGroup>
+    <BuildDirectory>$(MSBuildThisFileDirectory)Build/</BuildDirectory>
+    <BuildCommonDirectory>$(BuildDirectory)Common/</BuildCommonDirectory>
+    <BuildCommonAnalyzersDirectory>$(BuildCommonDirectory)Analyzers/</BuildCommonAnalyzersDirectory>
+    <BuildCommonPackDirectory>$(BuildCommonDirectory)Pack/</BuildCommonPackDirectory>
+    <BuildCommonPublishDirectory>$(BuildCommonDirectory)Publish/</BuildCommonPublishDirectory>
+    <BuildCommonPlatformDirectory>$(BuildCommonDirectory)Platform/</BuildCommonPlatformDirectory>
+  </PropertyGroup>
+
+  <!-- バージョン関連変数の定義 -->
+  <PropertyGroup Condition="'$(Version)' != ''">
+    <MajorVersion>$([System.String]::Format("{0}", $([System.Version]::Parse("$(Version)").Major)))</MajorVersion>
+    <MinorVersion>$([System.String]::Format("{0:D2}", $([System.Version]::Parse("$(Version)").Minor)))</MinorVersion>
+    <BuildVersion>$([System.String]::Format("{0:D3}", $([System.Version]::Parse("$(Version)").Build)))</BuildVersion>
+  </PropertyGroup>
+
+  <!-- プロジェクト共通のファイルを読み込む -->
   <ItemGroup>
-    <Compile Include="$(MSBuildThisFileDirectory)\Source\Common\**\*.cs" Visible="false" />
+    <Compile Include="$(MSBuildThisFileDirectory)Source/Common/**/*.cs" Visible="false" />
   </ItemGroup>
 
-  <ItemGroup>
-    <PackageReference Include="Microsoft.VisualStudio.Threading.Analyzers" Version="*">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-    </PackageReference>
-    <PackageReference Include="StyleCop.Analyzers" Version="*-*">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-    </PackageReference>
-  </ItemGroup>
+  <Import Project="$(BuildCommonAnalyzersDirectory)Analyzers.props" />
+  <Import Project="$(BuildCommonPlatformDirectory)Metadata.props" />
 
 </Project>
