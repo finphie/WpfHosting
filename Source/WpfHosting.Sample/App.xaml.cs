@@ -1,5 +1,4 @@
-﻿using System.Diagnostics.CodeAnalysis;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Threading;
 using Microsoft.Extensions.Logging;
 
@@ -22,7 +21,8 @@ public sealed partial class App : Application
         InitializeComponent();
     }
 
-    [SuppressMessage("Performance", "CA1848:LoggerMessage デリゲートを使用する", Justification = "このメソッドが呼ばれた場合、アプリケーションは終了するのでデリゲートを作成する必要なし。")]
-    void OnDispatcherUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e)
-        => _logger.LogError("An unhandled exception occurred.", e.Exception);
+    void OnDispatcherUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e) => Error(e?.Exception);
+
+    [LoggerMessage(Level = LogLevel.Error, Message = "An unhandled exception occurred.")]
+    partial void Error(Exception? ex);
 }

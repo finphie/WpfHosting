@@ -22,16 +22,12 @@
     <!-- AOTコンパイルを有効にする。 -->
     <RunAOTCompilation>true</RunAOTCompilation>
 
-    <!-- スレッドサポートを有効にする。 -->
-    <WasmEnableThreads>true</WasmEnableThreads>
+    <!-- AOTコンパイル後に未使用のILを削除する。 -->
+    <WasmStripILAfterAOT>true</WasmStripILAfterAOT>
 
     <!-- SIMDサポートを有効にする。 -->
     <WasmEnableSIMD>true</WasmEnableSIMD>
   </PropertyGroup>
-
-  <ItemGroup Condition="'$(Aot)' == 'true'">
-    <PackageReference Include="Microsoft.NET.WebAssembly.Threading" Version="*" />
-  </ItemGroup>
 
   <ItemGroup>
     <ProjectIdentifier Include="Browser" />

@@ -6,7 +6,11 @@
 
   <PropertyGroup>
     <IsPublishable>true</IsPublishable>
+
+    <!-- MAUIではトリミングするとクラッシュする。 -->
     <PublishMode>ReadyToRun</PublishMode>
+    <PublishMode Condition="'$(IsMaui)' == 'true'">ReadyToRunNoTrimming</PublishMode>
+
     <TargetPlatformMinVersion>10.0.19041.0</TargetPlatformMinVersion>
 
     <!--
@@ -46,26 +50,28 @@
   <Import Project="$(BuildCommonPublishDirectory)Publish.props" />
 
   <PropertyGroup>
-    <InvariantGlobalization>false</InvariantGlobalization>
-
-    <!-- trueだと実行時エラーとなる。 -->
+    <!-- trueだと余分な警告が出る。 -->
     <IsTrimmable>false</IsTrimmable>
-
-    <!--
-      TrimModeが.NET 7以降のデフォルトであるfullの場合、実行時エラーとなる。
-      <TrimmerRootAssembly Include="Microsoft.WinUI" />で実行時エラーを回避できるが、ファイルサイズが肥大化する。
-      そのため、.NET 6のデフォルトであるpartialにする。
-    -->
-    <TrimMode>partial</TrimMode>
   </PropertyGroup>
 
-  <!--
-    WinUIに必要なパッケージを参照する。
-    MAUIではSDKで自動的に参照されるため、重複して参照しないように注意する。
-  -->
-  <ItemGroup Condition="'$(UsingMicrosoftMauiSdk)' != 'true'">
+  <!-- WinUIに必要なパッケージを参照する。 -->
+  <ItemGroup>
     <PackageReference Include="Microsoft.WindowsAppSDK" Version="*" />
     <PackageReference Include="Microsoft.Windows.SDK.BuildTools" Version="*" />
   </ItemGroup>
+
+  <!--
+    TrimModeが.NET 7以降のデフォルトであるfullの場合、実行時エラーとなる。
+    <TrimmerRootAssembly Include="Microsoft.WinUI" />で実行時エラーを回避できるが、ファイルサイズが肥大化する。
+    partialを指定すれば実行できるが、ファイルサイズが少し大きくなる。
+    従って、アセンブリ名がプロジェクト名となるアセンブリのみをトリミングの対象外とする。
+  -->
+  <Target Name="_ConfigureTrimmingWinUI" BeforeTargets="PrepareForILLink">
+    <ItemGroup>
+      <ManagedAssemblyToLink Condition="'%(Filename)' == '$(MSBuildProjectName)'">
+        <IsTrimmable>false</IsTrimmable>
+      </ManagedAssemblyToLink>
+    </ItemGroup>
+  </Target>
 
 </Project>
