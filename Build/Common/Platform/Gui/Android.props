@@ -27,8 +27,11 @@
     <!-- AOTコンパイルを有効にする。 -->
     <RunAOTCompilation>true</RunAOTCompilation>
 
-    <!--  AOTプロファイルを使用する。 -->
+    <!-- AOTプロファイルを使用する。 -->
     <AndroidEnableProfiledAot>true</AndroidEnableProfiledAot>
+
+    <!-- AOTコンパイル後に未使用のILを削除する。 -->
+    <AndroidStripILAfterAOT>true</AndroidStripILAfterAOT>
 
     <!-- リンクを基本クラスライブラリとユーザーのアセンブリで実行する。 -->
     <AndroidLinkMode>Full</AndroidLinkMode>
@@ -36,16 +39,14 @@
     <!-- Resourceクラスの入れ子になった型をリンクする。 -->
     <AndroidLinkResources>true</AndroidLinkResources>
 
-    <AndroidLinkTool>r8</AndroidLinkTool>
-
-    <!-- LLVMを使用する。 -->
-    <EnableLLVM>true</EnableLLVM>
+    <!--
+      LLVMを無効にする。
+      有効にするとエラーになる。
+      https://github.com/dotnet/runtime/issues/92031
+    -->
+    <EnableLLVM>false</EnableLLVM>
   </PropertyGroup>
 
   <Import Project="$(BuildCommonPublishDirectory)Publish.props" />
-
-  <PropertyGroup>
-    <InvariantGlobalization>false</InvariantGlobalization>
-  </PropertyGroup>
 
 </Project>
