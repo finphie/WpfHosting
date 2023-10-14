@@ -11,7 +11,10 @@ namespace WpfHosting;
 [SuppressMessage("Design", "CA1001:破棄可能なフィールドを所有する型は、破棄可能でなければなりません", Justification = "App Builder")]
 public sealed class WpfAppBuilder
 {
-    readonly WpfApplicationServiceCollection _services = new();
+#pragma warning disable SA1010 // Opening square brackets should be spaced correctly
+    readonly WpfApplicationServiceCollection _services = [];
+#pragma warning restore SA1010 // Opening square brackets should be spaced correctly
+
     WpfApp? _application;
     ILoggingBuilder? _logging;
 
@@ -83,10 +86,8 @@ public sealed class WpfAppBuilder
         return _application;
     }
 
-    sealed class LoggingBuilder : ILoggingBuilder
+    sealed class LoggingBuilder(IServiceCollection services) : ILoggingBuilder
     {
-        public LoggingBuilder(IServiceCollection services) => Services = services;
-
-        public IServiceCollection Services { get; }
+        public IServiceCollection Services { get; } = services;
     }
 }
