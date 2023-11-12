@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System.Diagnostics.CodeAnalysis;
+using System.Windows;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
@@ -83,7 +84,7 @@ public static class WpfAppBuilderExtensions
     /// <param name="builder"><see cref="WpfAppBuilder"/>クラスのインスタンス</param>
     /// <returns><see cref="WpfAppBuilder"/>クラスのインスタンスを返します。</returns>
     /// <exception cref="ArgumentNullException"><paramref name="builder"/>がnullです。</exception>
-    public static WpfAppBuilder UseWpfApp<TApplication, TShellWindow>(this WpfAppBuilder builder)
+    public static WpfAppBuilder UseWpfApp<[DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicConstructors)] TApplication, [DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicConstructors)] TShellWindow>(this WpfAppBuilder builder)
         where TApplication : Application
         where TShellWindow : Window
     {
