@@ -121,6 +121,8 @@ MIT
 
 ### アナライザー
 
+- [DocumentationAnalyzers](https://github.com/DotNetAnalyzers/DocumentationAnalyzers)
+- [IDisposableAnalyzers](https://github.com/DotNetAnalyzers/IDisposableAnalyzers)
 - [Microsoft.CodeAnalysis.NetAnalyzers](https://github.com/dotnet/roslyn-analyzers)
 - [Microsoft.VisualStudio.Threading.Analyzers](https://github.com/Microsoft/vs-threading)
 - [StyleCop.Analyzers](https://github.com/DotNetAnalyzers/StyleCopAnalyzers)
