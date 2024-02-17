@@ -7,7 +7,7 @@ namespace WpfHosting.Sample;
 /// <summary>
 /// App.xamlの相互作用ロジック
 /// </summary>
-public sealed partial class App : Application
+sealed partial class App : Application
 {
     readonly ILogger<App> _logger;
 
