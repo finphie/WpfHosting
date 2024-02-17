@@ -1,10 +1,10 @@
-﻿namespace WpfHosting.Sample;
+﻿namespace WpfHosting.Sample.ViewModels;
 
 /// <summary>
 /// アプリケーション設定
 /// </summary>
 /// <param name="Title">タイトル</param>
-public record AppSettings(string Title)
+public sealed record AppSettings(string Title)
 {
     /// <summary>
     /// セクション名
