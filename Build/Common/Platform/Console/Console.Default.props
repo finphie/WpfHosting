@@ -3,6 +3,7 @@
 
   <PropertyGroup>
     <IsPublishable>true</IsPublishable>
+    <ProjectIdentifier>Console</ProjectIdentifier>
 
     <!--
       Native AOT: 起動速度を優先する場合
@@ -12,10 +13,6 @@
     <PublishMode Condition="'$(Aot)' == 'true'">NativeAot</PublishMode>
     <PublishMode Condition="'$(_IsPacking)' == 'true'">Tool</PublishMode>
   </PropertyGroup>
-
-  <ItemGroup>
-    <ProjectIdentifier Include="Console" />
-  </ItemGroup>
 
   <Import Project="$(BuildCommonPublishDirectory)Publish.props" />
 
