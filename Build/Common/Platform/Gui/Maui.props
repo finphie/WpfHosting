@@ -18,13 +18,8 @@
     <SingleProject>true</SingleProject>
   </PropertyGroup>
 
-  <ItemGroup>
-    <ProjectIdentifier Include="Windows" />
-    <ProjectIdentifier Include="Android" />
-  </ItemGroup>
-
   <Import Project="$(MSBuildThisFileDirectory)Xamarin.props" />
-  <Import Condition="'$(_TargetPlatformIdentifier)' == 'windows'" Project="$(MSBuildThisFileDirectory)WinUI.props" />
+  <Import Condition="'$(_TargetPlatformIdentifier)' == 'windows'" Project="$(MSBuildThisFileDirectory)WinUI.Shared.props" />
   <Import Condition="'$(_TargetPlatformIdentifier)' == 'android'" Project="$(MSBuildThisFileDirectory)Android.props" />
 
   <PropertyGroup Condition="'$(_TargetPlatformIdentifier)' == 'windows'">
