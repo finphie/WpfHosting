@@ -11,9 +11,7 @@ namespace WpfHosting;
 [SuppressMessage("Design", "CA1001:破棄可能なフィールドを所有する型は、破棄可能でなければなりません", Justification = "App Builder")]
 public sealed class WpfAppBuilder
 {
-#pragma warning disable SA1010 // Opening square brackets should be spaced correctly
     readonly WpfApplicationServiceCollection _services = [];
-#pragma warning restore SA1010 // Opening square brackets should be spaced correctly
 
     WpfApp? _application;
     ILoggingBuilder? _logging;
