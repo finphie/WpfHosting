@@ -1,5 +1,4 @@
-﻿using System.Diagnostics.CodeAnalysis;
-using Microsoft.Extensions.Configuration;
+﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 
@@ -12,7 +11,6 @@ public sealed class WpfAppBuilder
 {
     readonly WpfApplicationServiceCollection _services = [];
 
-    WpfApp? _application;
     ILoggingBuilder? _logging;
 
     /// <summary>
@@ -77,10 +75,9 @@ public sealed class WpfAppBuilder
     public WpfApp Build()
     {
         var serviceProvider = _services.BuildServiceProvider();
-        _application = new(serviceProvider);
         _services.IsReadOnly = true;
 
-        return _application;
+        return new(serviceProvider);
     }
 
     sealed class LoggingBuilder(IServiceCollection services) : ILoggingBuilder
