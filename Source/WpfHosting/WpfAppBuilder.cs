@@ -8,7 +8,6 @@ namespace WpfHosting;
 /// <summary>
 /// WPFアプリケーションの設定を構築するクラスです。
 /// </summary>
-[SuppressMessage("Design", "CA1001:破棄可能なフィールドを所有する型は、破棄可能でなければなりません", Justification = "App Builder")]
 public sealed class WpfAppBuilder
 {
     readonly WpfApplicationServiceCollection _services = [];
