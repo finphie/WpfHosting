@@ -102,14 +102,6 @@ MIT
 
 このプロジェクトでは、次のライブラリ等を使用しています。
 
-### ライブラリ
-
-- Microsoft.Extensions.Configuration
-- Microsoft.Extensions.Configuration.Json
-- Microsoft.Extensions.DependencyInjection
-- Microsoft.Extensions.Logging
-- Microsoft.Extensions.Options
-
 ### テスト
 
 - [FluentAssertions](https://github.com/fluentassertions/fluentassertions)
@@ -125,9 +117,10 @@ MIT
 - [IDisposableAnalyzers](https://github.com/DotNetAnalyzers/IDisposableAnalyzers)
 - [Microsoft.CodeAnalysis.NetAnalyzers](https://github.com/dotnet/roslyn-analyzers)
 - [Microsoft.VisualStudio.Threading.Analyzers](https://github.com/Microsoft/vs-threading)
+- [Roslynator.Analyzers](https://github.com/dotnet/roslynator)
+- [Roslynator.Formatting.Analyzers](https://github.com/dotnet/roslynator)
 - [StyleCop.Analyzers](https://github.com/DotNetAnalyzers/StyleCopAnalyzers)
 
 ### その他
 
-- [Microsoft.SourceLink.GitHub](https://github.com/dotnet/sourcelink)
 - [PolySharp](https://github.com/Sergio0694/PolySharp)
