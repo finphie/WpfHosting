@@ -16,25 +16,17 @@
       csprojまたはDirectory.Build.propsでの設定必須。
     -->
     <SingleProject>true</SingleProject>
+
+    <!-- コンパイル済みのバインディングを使用していない場合に警告を表示する。 -->
+    <MauiStrictXamlCompilation>true</MauiStrictXamlCompilation>
   </PropertyGroup>
 
   <Import Project="$(MSBuildThisFileDirectory)Xamarin.props" />
-  <Import Condition="'$(_TargetPlatformIdentifier)' == 'windows'" Project="$(MSBuildThisFileDirectory)WinUI.Shared.props" />
+  <Import Condition="'$(_TargetPlatformIdentifier)' == 'windows'" Project="$(MSBuildThisFileDirectory)WinUi.Shared.props" />
   <Import Condition="'$(_TargetPlatformIdentifier)' == 'android'" Project="$(MSBuildThisFileDirectory)Android.props" />
 
   <PropertyGroup Condition="'$(_TargetPlatformIdentifier)' == 'windows'">
     <SupportedOSPlatformVersion>$(TargetPlatformMinVersion)</SupportedOSPlatformVersion>
-
-    <!-- trueだとクラッシュする。 -->
-    <PublishSingleFile>false</PublishSingleFile>
   </PropertyGroup>
-
-  <!--
-    .NET 8では、RuntimeIdentifierに「win10-」ではなく「win-」を指定するとクラッシュする。
-    https://github.com/dotnet/maui/issues/17368
-  -->
-  <Target Name="_CheckRuntimeIdentifierMaui" BeforeTargets="PrepareForPublish">
-    <Error Condition="$(RuntimeIdentifier.StartsWith('win-'))" Text="Use 'win10-'" />
-  </Target>
 
 </Project>

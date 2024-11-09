@@ -1,5 +1,4 @@
-﻿using System.Diagnostics.CodeAnalysis;
-using Microsoft.Extensions.Configuration;
+﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 
@@ -8,12 +7,10 @@ namespace WpfHosting;
 /// <summary>
 /// WPFアプリケーションの設定を構築するクラスです。
 /// </summary>
-[SuppressMessage("Design", "CA1001:破棄可能なフィールドを所有する型は、破棄可能でなければなりません", Justification = "App Builder")]
 public sealed class WpfAppBuilder
 {
     readonly WpfApplicationServiceCollection _services = [];
 
-    WpfApp? _application;
     ILoggingBuilder? _logging;
 
     /// <summary>
@@ -78,10 +75,9 @@ public sealed class WpfAppBuilder
     public WpfApp Build()
     {
         var serviceProvider = _services.BuildServiceProvider();
-        _application = new(serviceProvider);
         _services.IsReadOnly = true;
 
-        return _application;
+        return new(serviceProvider);
     }
 
     sealed class LoggingBuilder(IServiceCollection services) : ILoggingBuilder

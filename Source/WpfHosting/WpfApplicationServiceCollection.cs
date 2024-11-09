@@ -8,7 +8,6 @@ namespace WpfHosting;
 /// <summary>
 /// WPFアプリケーション用の<see cref="ServiceCollection"/>クラスです。
 /// </summary>
-[SuppressMessage("Performance", "CA1812:インスタンス化されていない内部クラスを使用しません", Justification = "誤検知")]
 sealed class WpfApplicationServiceCollection : IServiceCollection
 {
     readonly IServiceCollection _services = new ServiceCollection();
@@ -87,9 +86,11 @@ sealed class WpfApplicationServiceCollection : IServiceCollection
 
     void Check()
     {
-        if (IsReadOnly)
+        if (!IsReadOnly)
         {
-            ThrowInvalidOperationException();
+            return;
         }
+
+        ThrowInvalidOperationException();
     }
 }
