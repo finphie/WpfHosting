@@ -1,0 +1,3 @@
+<Project>
+  <Import Condition="'$(MSBuildProjectExtension)' == '.csproj'" Project="Tests.targets" />
+</Project>

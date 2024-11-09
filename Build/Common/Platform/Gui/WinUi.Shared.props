@@ -1,0 +1,37 @@
+<Project>
+  <!--
+    WinUI関連の設定
+    MAUIからも参照されるので注意する。
+  -->
+
+  <PropertyGroup>
+    <PublishMode>NativeAot</PublishMode>
+    <EnableReflection>true</EnableReflection>
+
+    <TargetPlatformMinVersion>10.0.19041.0</TargetPlatformMinVersion>
+
+    <!-- x64の場合AVX2対応を必須にする。 -->
+    <IlcInstructionSet Condition="$(RuntimeIdentifier.EndsWith('x64'))">x86-x64-v3</IlcInstructionSet>
+
+    <!--
+      MSIX関連の設定。
+      csprojまたはDirectory.Build.propsでの設定必須。
+    -->
+    <EnableMsixTooling>true</EnableMsixTooling>
+
+    <!--
+      パッケージタイプの設定。
+      csprojまたはDirectory.Build.propsでの設定必須。
+    -->
+    <WindowsPackageType>None</WindowsPackageType>
+
+    <!--
+      アプリにWindows App SDKの内容を含めない。
+      csprojまたはDirectory.Build.propsでの設定必須。
+    -->
+    <WindowsAppSDKSelfContained>false</WindowsAppSDKSelfContained>
+  </PropertyGroup>
+
+  <Import Project="$(BuildCommonPublishDirectory)Publish.props" />
+
+</Project>

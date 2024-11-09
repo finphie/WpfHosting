@@ -18,6 +18,11 @@ end_of_line = crlf
 [*.sln]
 indent_style = tab
 
+# Visual Studio XML ソリューションファイル
+[*.slnx]
+end_of_line = crlf
+indent_size = 2
+
 # C#プロジェクトファイル
 # EditorConfigなしだとUTF-8（WPFプロジェクトはBOM付き）のCRLFになる。
 [*.csproj]
