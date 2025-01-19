@@ -3,7 +3,8 @@ name: Normalize line endings
 on:
   pull_request:
 
-permissions: {}
+permissions:
+  contents: write
 
 jobs:
   main:
