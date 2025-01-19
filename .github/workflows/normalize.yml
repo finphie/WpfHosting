@@ -1,0 +1,10 @@
+name: Normalize line endings
+
+on:
+  pull_request:
+
+permissions: {}
+
+jobs:
+  main:
+    uses: finphie/Actions/.github/workflows/normalize.yml@main
