@@ -1,89 +1,61 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using System.Windows;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Diagnostics.Metrics;
+using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 
 namespace WpfHosting;
 
 /// <summary>
-/// WPFアプリケーションの設定を構築するクラスです。
+/// Settings for constructing an <see cref="WpfAppBuilder{TApplication, TMainWindow}"/>.
 /// </summary>
-public sealed class WpfAppBuilder
+/// <typeparam name="TApplication">The type of the WPF application.</typeparam>
+/// <typeparam name="TMainWindow">The type of the main window of the WPF application.</typeparam>
+public sealed class WpfAppBuilder<TApplication, TMainWindow>
+    where TApplication : Application
+    where TMainWindow : Window
 {
-    readonly WpfApplicationServiceCollection _services = [];
-
-#pragma warning disable IDE0032 // 自動プロパティを使用する
-    ILoggingBuilder? _logging;
-#pragma warning restore IDE0032 // 自動プロパティを使用する
-
     /// <summary>
-    /// <see cref="WpfAppBuilder"/>クラスの新しいインスタンスを初期化します。
+    /// Initializes a new instance of the <see cref="WpfAppBuilder{TApplication, TMainWindow}"/> class with pre-configured defaults.
     /// </summary>
-    /// <param name="useDefaults">
-    /// デフォルト設定を使用する場合は<see langword="true"/>、
-    /// 使用しない場合は<see langword="false"/>。
+    /// <param name="settings">
+    /// <inheritdoc cref="HostApplicationBuilder(HostApplicationBuilderSettings?)" path="/param[@name='settings']"/>
     /// </param>
-    internal WpfAppBuilder(bool useDefaults)
-    {
-        Services.AddSingleton<IConfiguration>(Configuration);
-
-        if (!useDefaults)
-        {
-            return;
-        }
-
-        Configuration.AddJsonFile("appsettings.json", true, true);
-    }
+    internal WpfAppBuilder(HostApplicationBuilderSettings? settings)
+        => HostBuilder = Host.CreateEmptyApplicationBuilder(settings);
 
     /// <summary>
-    /// アプリケーションに関連付けるサービスのコレクションを取得します。
+    /// Gets the <see cref="HostApplicationBuilder"/> instance used to configure the application.
     /// </summary>
-    /// <value>
-    /// デフォルト設定で作成された場合は、"appsettings.json"の読み取りを設定した<see cref="IServiceCollection"/>を返します。
-    /// </value>
-    public IServiceCollection Services => _services;
+    public HostApplicationBuilder HostBuilder { get; }
+
+    /// <inheritdoc cref="HostApplicationBuilder.Environment"/>
+    public IHostEnvironment Environment => HostBuilder.Environment;
+
+    /// <inheritdoc cref="HostApplicationBuilder.Configuration"/>
+    public ConfigurationManager Configuration => HostBuilder.Configuration;
+
+    /// <inheritdoc cref="HostApplicationBuilder.Services"/>
+    public IServiceCollection Services => HostBuilder.Services;
+
+    /// <inheritdoc cref="HostApplicationBuilder.Logging"/>
+    public ILoggingBuilder Logging => HostBuilder.Logging;
+
+    /// <inheritdoc cref="HostApplicationBuilder.Metrics"/>
+    public IMetricsBuilder Metrics => HostBuilder.Metrics;
 
     /// <summary>
-    /// アプリケーションに関連付ける構成プロバイダーを取得します。
+    /// <inheritdoc cref="HostApplicationBuilder.Build" path="/summary"/>
     /// </summary>
-    /// <value>
-    /// <see cref="ConfigurationManager"/>クラスのインスタンスを返します。
-    /// </value>
-    public ConfigurationManager Configuration { get; } = new();
-
-    /// <summary>
-    /// アプリケーションが作成するロギングプロバイダーのコレクションを取得します。
-    /// </summary>
-    /// <value>
-    /// 初回アクセス時、<see cref="Services"/>プロパティにロギング関連のサービスを登録します。
-    /// </value>
-    public ILoggingBuilder Logging
-    {
-        get
-        {
-            return _logging ??= InitializeLogging();
-
-            ILoggingBuilder InitializeLogging()
-            {
-                Services.AddLogging();
-                return new LoggingBuilder(Services);
-            }
-        }
-    }
-
-    /// <summary>
-    /// 構築された設定から<see cref="WpfApp"/>クラスのインスタンスを作成します。
-    /// </summary>
-    /// <returns><see cref="WpfApp"/>クラスのインスタンスを返します。</returns>
+    /// <returns>An initialized <see cref="WpfApp"/>.</returns>
     public WpfApp Build()
     {
-        var serviceProvider = _services.BuildServiceProvider();
-        _services.IsReadOnly = true;
+        HostBuilder.Services.AddHostedService<Bootstrapper<TApplication, TMainWindow>>();
+        HostBuilder.Services.AddSingleton<TApplication>();
+        HostBuilder.Services.AddTransient<TMainWindow>();
 
-        return new(serviceProvider);
-    }
-
-    sealed class LoggingBuilder(IServiceCollection services) : ILoggingBuilder
-    {
-        public IServiceCollection Services { get; } = services;
+        var host = HostBuilder.Build();
+        return new(host);
     }
 }
