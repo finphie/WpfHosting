@@ -4,31 +4,29 @@
 [![NuGet](https://img.shields.io/nuget/v/WpfHosting?color=0078d4&label=NuGet)](https://www.nuget.org/packages/WpfHosting/)
 [![Azure Artifacts](https://feeds.dev.azure.com/finphie/7af9aa4d-c550-43af-87a5-01539b2d9934/_apis/public/Packaging/Feeds/DotNet/Packages/ea55a98f-3510-4b2e-9ef1-a9c04bf6a92f/Badge)](https://dev.azure.com/finphie/Main/_artifacts/feed/DotNet/NuGet/WpfHosting?preferRelease=true)
 
-[日本語 (Japanese)](README.ja.md)
-
-Library for building WPF applications using Generic Host.
+Generic Hostを使用したWPFアプリケーションの構築を行うライブラリです
 
 ## 説明
 
-A library for building WPF applications using Generic Host (`Host.CreateEmptyApplicationBuilder`).
+Generic Host (`Host.CreateEmptyApplicationBuilder`)を使用して、WPFアプリケーションの構築を行うライブラリです。
 
-## Installation
+## インストール
 
-### NuGet (Stable Release)
+### NuGet（正式リリース版）
 
 ```shell
 dotnet add package WpfHosting
 ```
 
-### Azure Artifacts (Development Builds)
+### Azure Artifacts（開発用ビルド）
 
 ```shell
 dotnet add package WpfHosting -s https://pkgs.dev.azure.com/finphie/Main/_packaging/DotNet/nuget/v3/index.json
 ```
 
-## Usage
+## 使い方
 
-Create `App.xaml` and `App.xaml.cs` and write the following:
+`App.xaml`と`App.xaml.cs`を作成して次のように記述します。
 
 ```xml
 <Application x:Class="WpfHosting.Sample.App"
@@ -46,7 +44,7 @@ public sealed partial class App : Application
 }
 ```
 
-Create `MainWindow.xaml` and `MainWindow.xaml.cs` and write the following:
+`MainWindow.xaml`と`MainWindow.xaml.cs`を作成して次のように記述します。
 
 ```xml
 <Window x:Class="WpfHosting.Sample.Views.MainWindow"
@@ -72,7 +70,7 @@ public sealed partial class MainWindow : Window
 }
 ```
 
-Create `Program.cs` and write the following:
+`Program.cs`を作成して次のように記述します。
 
 ```csharp
 using WpfHosting;
@@ -82,26 +80,26 @@ var app = builder.Build();
 app.Run();
 ```
 
-[Sample Project](https://github.com/finphie/WpfHosting/tree/main/Source/WpfHosting.Sample)
+[サンプルプロジェクト](https://github.com/finphie/WpfHosting/tree/main/Source/WpfHosting.Sample)
 
-## Supported Frameworks
+## サポートフレームワーク
 
 - .NET 9
 - .NET 8
 
-## Author
+## 作者
 
 finphie
 
-## License
+## ライセンス
 
 MIT
 
-## Credits
+## クレジット
 
-This project uses the following libraries, etc.
+このプロジェクトでは、次のライブラリ等を使用しています。
 
-### Analyzers
+### アナライザー
 
 - [DocumentationAnalyzers](https://github.com/DotNetAnalyzers/DocumentationAnalyzers)
 - [IDisposableAnalyzers](https://github.com/DotNetAnalyzers/IDisposableAnalyzers)
@@ -111,6 +109,6 @@ This project uses the following libraries, etc.
 - [Roslynator.Formatting.Analyzers](https://github.com/dotnet/roslynator)
 - [StyleCop.Analyzers](https://github.com/DotNetAnalyzers/StyleCopAnalyzers)
 
-### Others
+### その他
 
 - [PolySharp](https://github.com/Sergio0694/PolySharp)

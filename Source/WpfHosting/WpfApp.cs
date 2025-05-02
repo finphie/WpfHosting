@@ -1,63 +1,46 @@
 ﻿using System.Windows;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 
 namespace WpfHosting;
 
 /// <summary>
-/// WPFアプリケーションを実行するクラスです。
+/// Provides static methods for creating and configuring a WPF application using a hosting model.
 /// </summary>
-public sealed class WpfApp : IDisposable
+public sealed class WpfApp
 {
     /// <summary>
-    /// <see cref="WpfApp"/>クラスの新しいインスタンスを初期化します。
+    /// Initializes a new instance of the <see cref="WpfApp"/> class.
     /// </summary>
-    /// <param name="services">アプリケーションの構成済みサービス</param>
-    /// <exception cref="ArgumentNullException"><paramref name="services"/>がnullです。</exception>
-    internal WpfApp(IServiceProvider services)
+    /// <param name="host">The <see cref="IHost"/> instance that provides application services.</param>
+    internal WpfApp(IHost host)
     {
-        ArgumentNullException.ThrowIfNull(services);
-        Services = services;
+        ArgumentNullException.ThrowIfNull(host);
+        Host = host;
     }
 
     /// <summary>
-    /// アプリケーションの構成済みサービスを取得します。
+    /// Gets the <see cref="IHost"/> instance used by the application.
     /// </summary>
-    /// <value>
-    /// <see cref="CreateDefaultBuilder"/>メソッドで作成された場合は、
-    /// "appsettings.json"の読み取りを設定した<see cref="IServiceProvider"/>を返します。
-    /// </value>
-    public IServiceProvider Services { get; }
+    public IHost Host { get; }
+
+    /// <inheritdoc cref="IHost.Services"/>
+    public IServiceProvider Services => Host.Services;
 
     /// <summary>
-    /// アプリケーションの構成プロパティのセットを取得します。
+    /// Creates a new instance of the <see cref="WpfAppBuilder{TApplication, TMainWindow}"/> class for configuring the application.
     /// </summary>
-    /// <value>
-    /// <see cref="Services"/>プロパティに登録された<see cref="IConfiguration"/>を返します。
-    /// </value>
-    public IConfiguration Configuration => Services.GetRequiredService<IConfiguration>();
+    /// <typeparam name="TApplication">The type of the WPF application.</typeparam>
+    /// <typeparam name="TMainWindow">The type of the main window of the WPF application.</typeparam>
+    /// <param name="settings">Optional settings for configuring the <see cref="WpfAppBuilder{TApplication, TMainWindow}"/>.</param>
+    /// <returns>A new <see cref="WpfAppBuilder{TApplication, TMainWindow}"/> instance.</returns>
+    public static WpfAppBuilder<TApplication, TMainWindow> CreateBuilder<TApplication, TMainWindow>(HostApplicationBuilderSettings? settings = null)
+        where TApplication : Application
+        where TMainWindow : Window
+        => new(settings);
 
     /// <summary>
-    /// <see cref="WpfAppBuilder"/>クラスの新しいインスタンスをデフォルト設定で初期化します。
+    /// Runs the WPF application by starting the main application loop.
     /// </summary>
-    /// <returns><see cref="WpfAppBuilder"/>クラスのインスタンスを返します。</returns>
-    public static WpfAppBuilder CreateDefaultBuilder()
-       => new(true);
-
-    /// <summary>
-    /// <see cref="WpfAppBuilder"/>クラスの新しいインスタンスを初期化します。
-    /// </summary>
-    /// <returns><see cref="WpfAppBuilder"/>のインスタンスを返します。</returns>
-    public static WpfAppBuilder CreateBuilder()
-        => new(false);
-
-    /// <summary>
-    /// アプリケーションを実行します。
-    /// </summary>
-    /// <exception cref="InvalidOperationException">
-    /// <see cref="Services"/>プロパティに<see cref="Application"/>クラスまたは<see cref="Window"/>クラスが
-    /// 登録されていません。
-    /// </exception>
     public void Run()
     {
         // https://stackoverflow.com/q/64946371
@@ -65,12 +48,6 @@ public sealed class WpfApp : IDisposable
         Thread.CurrentThread.SetApartmentState(ApartmentState.Unknown);
         Thread.CurrentThread.SetApartmentState(ApartmentState.STA);
 
-        var application = Services.GetRequiredService<Application>();
-        var window = Services.GetRequiredService<Window>();
-
-        application.Run(window);
+        Host.Run();
     }
-
-    /// <inheritdoc />
-    public void Dispose() => (Configuration as IDisposable)?.Dispose();
 }
