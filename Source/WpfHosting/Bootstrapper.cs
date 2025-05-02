@@ -36,8 +36,8 @@ sealed class Bootstrapper<TApplication, TMainWindow> : BackgroundService
     /// <inheritdoc/>
     protected override Task ExecuteAsync(CancellationToken stoppingToken)
     {
-        _application.Startup += (s, e) => _window.Show();
-        _application.Exit += (s, e) => _lifetime.StopApplication();
+        _application.Startup += (_, _) => _window.Show();
+        _application.Exit += (_, _) => _lifetime.StopApplication();
         _application.Run();
 
         return Task.CompletedTask;
