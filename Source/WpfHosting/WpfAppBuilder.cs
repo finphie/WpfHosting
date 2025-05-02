@@ -11,7 +11,9 @@ public sealed class WpfAppBuilder
 {
     readonly WpfApplicationServiceCollection _services = [];
 
+#pragma warning disable IDE0032 // 自動プロパティを使用する
     ILoggingBuilder? _logging;
+#pragma warning restore IDE0032 // 自動プロパティを使用する
 
     /// <summary>
     /// <see cref="WpfAppBuilder"/>クラスの新しいインスタンスを初期化します。
