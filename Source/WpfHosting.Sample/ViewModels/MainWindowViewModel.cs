@@ -4,20 +4,20 @@ using Microsoft.Extensions.Options;
 namespace WpfHosting.Sample.ViewModels;
 
 /// <summary>
-/// Shell ViewModel
+/// MainWindow ViewModel
 /// </summary>
-public sealed partial class ShellViewModel
+public sealed partial class MainWindowViewModel
 {
-    readonly ILogger<ShellViewModel> _logger;
+    readonly ILogger<MainWindowViewModel> _logger;
     readonly AppSettings _settings;
 
     /// <summary>
-    /// <see cref="ShellViewModel"/>クラスの新しいインスタンスを初期化します。
+    /// <see cref="MainWindowViewModel"/>クラスの新しいインスタンスを初期化します。
     /// </summary>
     /// <param name="logger">ロガー</param>
     /// <param name="settings">設定</param>
     /// <exception cref="ArgumentNullException"><paramref name="logger"/>または<paramref name="settings"/>がnullです。</exception>
-    public ShellViewModel(ILogger<ShellViewModel> logger, IOptions<AppSettings> settings)
+    public MainWindowViewModel(ILogger<MainWindowViewModel> logger, IOptions<AppSettings> settings)
     {
         ArgumentNullException.ThrowIfNull(logger);
         ArgumentNullException.ThrowIfNull(settings);
