@@ -48,12 +48,12 @@ public sealed class WpfAppBuilder<TApplication, TMainWindow>
     /// <summary>
     /// <inheritdoc cref="HostApplicationBuilder.Build" path="/summary"/>
     /// </summary>
-    /// <returns>An initialized <see cref="WpfApp"/>.</returns>
-    public WpfApp Build()
+    /// <returns>An initialized <see cref="WpfApp{TApplication}"/>.</returns>
+    public WpfApp<TApplication> Build()
     {
-        HostBuilder.Services.AddHostedService<Bootstrapper<TApplication, TMainWindow>>();
-        HostBuilder.Services.AddSingleton<TApplication>();
-        HostBuilder.Services.AddTransient<TMainWindow>();
+        Services.AddHostedService<Bootstrapper<TMainWindow>>();
+        Services.AddSingleton<TApplication>();
+        Services.AddTransient<TMainWindow>();
 
         var host = HostBuilder.Build();
         return new(host);
