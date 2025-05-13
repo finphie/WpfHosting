@@ -1,0 +1,6 @@
+<Solution>
+  <Folder Name="/Source/">
+    <Project Path="Source/WpfHosting.Sample/WpfHosting.Sample.csproj" />
+    <Project Path="Source/WpfHosting/WpfHosting.csproj" />
+  </Folder>
+</Solution>
