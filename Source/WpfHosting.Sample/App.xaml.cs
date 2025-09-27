@@ -7,19 +7,10 @@ namespace WpfHosting.Sample;
 /// <summary>
 /// App.xamlの相互作用ロジック
 /// </summary>
-sealed partial class App : Application
+/// <param name="logger">ロガー</param>
+sealed partial class App(ILogger<App> logger) : Application
 {
-    readonly ILogger<App> _logger;
-
-    /// <summary>
-    /// <see cref="App"/>クラスの新しいインスタンスを初期化します。
-    /// </summary>
-    /// <param name="logger">ロガー</param>
-    public App(ILogger<App> logger)
-    {
-        _logger = logger;
-        InitializeComponent();
-    }
+    readonly ILogger<App> _logger = logger;
 
     void OnDispatcherUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e) => Error(e?.Exception);
 
