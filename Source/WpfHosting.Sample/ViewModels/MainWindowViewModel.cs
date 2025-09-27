@@ -6,7 +6,7 @@ namespace WpfHosting.Sample.ViewModels;
 /// <summary>
 /// MainWindow ViewModel
 /// </summary>
-public sealed partial class MainWindowViewModel
+sealed partial class MainWindowViewModel
 {
     readonly ILogger<MainWindowViewModel> _logger;
     readonly AppSettings _settings;
