@@ -40,10 +40,7 @@ Create `App.xaml` and `App.xaml.cs` and write the following:
 ```csharp
 using System.Windows;
 
-public sealed partial class App : Application
-{
-    public App() => InitializeComponent();
-}
+public sealed partial class App : Application;
 ```
 
 Create `MainWindow.xaml` and `MainWindow.xaml.cs` and write the following:

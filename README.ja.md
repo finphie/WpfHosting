@@ -38,10 +38,7 @@ dotnet add package WpfHosting -s https://pkgs.dev.azure.com/finphie/Main/_packag
 ```csharp
 using System.Windows;
 
-public sealed partial class App : Application
-{
-    public App() => InitializeComponent();
-}
+public sealed partial class App : Application;
 ```
 
 `MainWindow.xaml`と`MainWindow.xaml.cs`を作成して次のように記述します。
