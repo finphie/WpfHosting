@@ -3,4 +3,8 @@
     <Project Path="Source/WpfHosting.Sample/WpfHosting.Sample.csproj" />
     <Project Path="Source/WpfHosting/WpfHosting.csproj" />
   </Folder>
+  <Folder Name="/Tests/" />
+  <Folder Name="/ソリューション項目/">
+    <File Path="version.json" />
+  </Folder>
 </Solution>
