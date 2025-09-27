@@ -1,3 +1,39 @@
+[*.cs]
+
+## Microsoft.CodeAnalysis.NetAnalyzers ##
+
+# インスタンス化されていない内部クラスを使用しません
+# https://learn.microsoft.com/dotnet/fundamentals/code-analysis/quality-rules/ca1812
+# 理由: Microsoft.Extensions.DependencyInjectionなどで、型をジェネリックとして使用すると誤検知するため。
+# https://github.com/dotnet/roslyn-analyzers/issues/6561
+dotnet_diagnostic.CA1812.severity = none
+
+[*{Helpers,Extensions,Factory}.cs]
+
+## Microsoft.CodeAnalysis.NetAnalyzers ##
+
+# インスタンス化されていない内部クラスを使用しません
+# https://learn.microsoft.com/dotnet/fundamentals/code-analysis/quality-rules/ca1812
+# 理由: 有効化したいクラスのため。
+dotnet_diagnostic.CA1812.severity = warning
+
+[*{ViewModel,ViewModelBase}.cs]
+
+## Microsoft.CodeAnalysis.NetAnalyzers ##
+
+# 識別子は、大文字と小文字の区別以外にも相違していなければなりません
+# https://learn.microsoft.com/dotnet/fundamentals/code-analysis/quality-rules/ca1708
+# 理由: CommunityToolkit.Mvvmの仕様。
+# https://github.com/CommunityToolkit/dotnet/issues/1045
+dotnet_diagnostic.CA1708.severity = none
+
+## IDisposableAnalyzers ##
+
+# Don't ignore created IDisposable
+# https://github.com/DotNetAnalyzers/IDisposableAnalyzers/blob/master/documentation/IDISP003.md
+# 理由: IDisposable.AddTo(ref DisposableBuilder)で誤検知するため。
+dotnet_diagnostic.IDISP003.severity = none
+
 # C#ベンチマークファイル（プロジェクト全体）
 [*.Benchmarks/**.cs]
 
@@ -108,12 +144,3 @@ dotnet_diagnostic.SA1132.severity = none
 # https://github.com/DotNetAnalyzers/StyleCopAnalyzers/blob/master/documentation/SA1402.md
 # 理由: 1ファイルに収めたい場合がある。
 dotnet_diagnostic.SA1402.severity = none
-
-[Program.cs]
-
-## StyleCop.Analyzers ##
-
-# The file name of a C# code file does not match the first type declared in the file.
-# https://github.com/DotNetAnalyzers/StyleCopAnalyzers/blob/master/documentation/SA1649.md
-# 理由: トップレベルステートメントでは、ファイル名と型名が異なる場合がある。
-dotnet_diagnostic.SA1649.severity = none
