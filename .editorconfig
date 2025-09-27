@@ -14,6 +14,11 @@ trim_trailing_whitespace = true
 charset = utf-8-bom
 end_of_line = crlf
 
+# リソースファイル
+[*.resx]
+end_of_line = crlf
+indent_size = 2
+
 # Visual Studio ソリューションファイル
 [*.sln]
 indent_style = tab
@@ -23,9 +28,9 @@ indent_style = tab
 end_of_line = crlf
 indent_size = 2
 
-# C#プロジェクトファイル
-# EditorConfigなしだとUTF-8（WPFプロジェクトはBOM付き）のCRLFになる。
-[*.csproj]
+# Visual Studioプロジェクトファイル
+# .csprojは、EditorConfigなしだとUTF-8（WPFプロジェクトはBOM付き）のCRLFになる。
+[*.{csproj,esproj}]
 end_of_line = crlf
 indent_size = 2
 
@@ -56,3 +61,7 @@ trim_trailing_whitespace = false
 # C# 生成コード
 [{*Generated,**/Generated/**}.cs]
 generated_code = true
+
+# XamlStyler
+[Settings.XamlStyler]
+indent_size = 2

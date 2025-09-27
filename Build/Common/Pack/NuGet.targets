@@ -4,14 +4,23 @@
     <_BuildFilePathWithoutExtension>$(BuildDirectory)$(MSBuildProjectName)</_BuildFilePathWithoutExtension>
     <_BuildPropsFilePath>$(_BuildFilePathWithoutExtension).props</_BuildPropsFilePath>
     <_BuildTargetsFilePath>$(_BuildFilePathWithoutExtension).targets</_BuildTargetsFilePath>
+    <_IsSnupkg Condition="$(MSBuildProjectName.StartsWith('FToolkit'))">false</_IsSnupkg>
   </PropertyGroup>
 
   <PropertyGroup>
-    <IncludeSymbols>true</IncludeSymbols>
-    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
-
     <!-- パッケージ検証を有効にする。 -->
     <EnablePackageValidation>true</EnablePackageValidation>
+  </PropertyGroup>
+
+  <!-- .snupkg有効（デフォルト） -->
+  <PropertyGroup Condition="'$(_IsSnupkg)' == 'true' or '$(_IsSnupkg)' == ''">
+    <IncludeSymbols>true</IncludeSymbols>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+  </PropertyGroup>
+
+  <!-- .snupkg無効 -->
+  <PropertyGroup Condition="'$(_IsSnupkg)' == 'false'">
+    <AllowedOutputExtensionsInPackageBuildOutputFolder>$(AllowedOutputExtensionsInPackageBuildOutputFolder);.pdb</AllowedOutputExtensionsInPackageBuildOutputFolder>
   </PropertyGroup>
 
   <ItemGroup>

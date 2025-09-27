@@ -1,5 +1,15 @@
 is_global = true
 
+### .NET コード アクション ###
+
+# 型メンバー
+dotnet_hide_advanced_members = false
+dotnet_member_insertion_location = with_other_members_of_the_same_kind
+dotnet_property_generation_behavior = prefer_throwing_properties
+
+# シンボルの検索
+dotnet_search_reference_assemblies = true
+
 ### .NET コーディング規則 ###
 
 # using の整理
@@ -89,6 +99,7 @@ csharp_style_prefer_switch_expression = true
 csharp_style_conditional_delegate_call = true
 
 # 修飾子設定
+csharp_prefer_static_anonymous_function = true
 csharp_prefer_static_local_function = true
 csharp_preferred_modifier_order = public,private,protected,internal,file,static,extern,new,virtual,abstract,sealed,override,readonly,unsafe,required,volatile,async
 csharp_style_prefer_readonly_struct = true
@@ -97,9 +108,11 @@ csharp_style_prefer_readonly_struct_member = true
 # コード ブロックの設定
 csharp_prefer_braces = true
 csharp_prefer_simple_using_statement = true
+csharp_prefer_system_threading_lock = true
 csharp_style_namespace_declarations = file_scoped
 csharp_style_prefer_method_group_conversion = true
 csharp_style_prefer_primary_constructors = true
+csharp_style_prefer_simple_property_accessors = true
 csharp_style_prefer_top_level_statements = true
 
 # 式レベルの設定
@@ -107,6 +120,7 @@ csharp_prefer_simple_default_expression = true
 csharp_style_deconstructed_variable_declaration = true
 csharp_style_implicit_object_creation_when_type_is_apparent = true
 csharp_style_inlined_variable_declaration = true
+csharp_style_prefer_implicitly_typed_lambda_expression = true
 csharp_style_prefer_index_operator = true
 csharp_style_prefer_local_over_anonymous_function = true
 csharp_style_prefer_null_check_over_type_check = true
@@ -350,6 +364,11 @@ dotnet_diagnostic.CA1040.severity = none
 # 構造体ではプロパティではなくフィールドにしたい場合がある。
 dotnet_code_quality.CA1051.exclude_structs = true
 
+# パブリック メソッドの引数の検証
+# https://learn.microsoft.com/dotnet/fundamentals/code-analysis/quality-rules/ca1062
+# 理由: 拡張メソッドのthisパラメーターは検証しない。
+dotnet_code_quality.CA1062.exclude_extension_method_this_parameter = true
+
 # 識別子には型名を含めないでください
 # https://learn.microsoft.com/dotnet/fundamentals/code-analysis/quality-rules/ca1720
 # 理由: 内部では識別子に型名を利用したい場合がある。
@@ -365,6 +384,12 @@ dotnet_diagnostic.CA1715.severity = none
 # https://learn.microsoft.com/dotnet/fundamentals/code-analysis/quality-rules/ca1716
 # 理由: キーワードと重複しても逐語的・エスケープ識別子を使用すれば問題ない。
 dotnet_diagnostic.CA1716.severity = none
+
+# スコープを失う前にオブジェクトを破棄
+# https://learn.microsoft.com/dotnet/fundamentals/code-analysis/quality-rules/ca2000
+# 理由: 例外パスでもDisposeを呼び出す必要がある。
+dotnet_code_quality.CA2000.dispose_analysis_kind = AllPaths
+dotnet_code_quality.CA2000.excluded_type_names_with_derived_types = T:System.Net.Http.HttpClient|T:System.Net.Http.HttpRequestMessage
 
 # タスクを直接待機しないでください
 # https://learn.microsoft.com/dotnet/fundamentals/code-analysis/quality-rules/ca2007
@@ -383,6 +408,11 @@ dotnet_diagnostic.CA2225.severity = none
 dotnet_diagnostic.CA3009.severity = none
 
 ## Microsoft.VisualStudio.Threading.Analyzers ##
+
+# Avoid legacy thread switching methods
+# https://microsoft.github.io/vs-threading/analyzers/VSTHRD001.html
+# 理由: 不要。
+dotnet_diagnostic.VSTHRD001.severity = none
 
 # Call async methods when in an async method
 # https://github.com/Microsoft/vs-threading/blob/main/doc/analyzers/VSTHRD103.md
@@ -969,6 +999,43 @@ roslynator_blank_line_between_switch_sections = omit
 # 理由: CA2000と重複。
 # https://learn.microsoft.com/dotnet/fundamentals/code-analysis/quality-rules/ca2000
 dotnet_diagnostic.IDISP001.severity = none
+
+# Dispose member
+# https://github.com/DotNetAnalyzers/IDisposableAnalyzers/blob/master/documentation/IDISP002.md
+# 理由: CA2213と重複しているが、デフォルトで無効。
+# https://learn.microsoft.com/dotnet/fundamentals/code-analysis/quality-rules/ca2213
+# dotnet_diagnostic.IDISP002.severity = none
+
+# Don't ignore created IDisposable
+# https://github.com/DotNetAnalyzers/IDisposableAnalyzers/blob/master/documentation/IDISP004.md
+# 理由: CA2000と重複しておりProcessクラスなどでは診断が出ないが、その他にも誤検知が多い。
+# https://learn.microsoft.com/dotnet/fundamentals/code-analysis/quality-rules/ca2000
+# https://github.com/dotnet/roslyn-analyzers/issues/6688
+dotnet_diagnostic.IDISP004.severity = none
+
+# Call SuppressFinalize
+# https://github.com/DotNetAnalyzers/IDisposableAnalyzers/blob/master/documentation/IDISP018.md
+# 理由: CA1816と重複。
+# https://learn.microsoft.com/dotnet/fundamentals/code-analysis/quality-rules/ca1816
+dotnet_diagnostic.IDISP018.severity = none
+
+# Call SuppressFinalize
+# https://github.com/DotNetAnalyzers/IDisposableAnalyzers/blob/master/documentation/IDISP019.md
+# 理由: CA1063と重複。
+# https://learn.microsoft.com/dotnet/fundamentals/code-analysis/quality-rules/ca1063
+dotnet_diagnostic.IDISP019.severity = none
+
+# Call SuppressFinalize(this)
+# https://github.com/DotNetAnalyzers/IDisposableAnalyzers/blob/master/documentation/IDISP020.md
+# 理由: CA1816と重複。
+# https://learn.microsoft.com/dotnet/fundamentals/code-analysis/quality-rules/ca1816
+dotnet_diagnostic.IDISP020.severity = none
+
+# Class with no virtual dispose method should be sealed
+# https://github.com/DotNetAnalyzers/IDisposableAnalyzers/blob/master/documentation/IDISP025.md
+# 理由: CA1063と重複。
+# https://learn.microsoft.com/dotnet/fundamentals/code-analysis/quality-rules/ca1063
+dotnet_diagnostic.IDISP025.severity = none
 
 ## DotNetAnalyzers.DocumentationAnalyzers ##
 
