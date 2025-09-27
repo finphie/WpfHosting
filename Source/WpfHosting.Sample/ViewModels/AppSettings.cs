@@ -4,7 +4,7 @@
 /// アプリケーション設定
 /// </summary>
 /// <param name="Title">タイトル</param>
-public sealed record AppSettings(string Title)
+sealed record AppSettings(string Title)
 {
     /// <summary>
     /// セクション名
