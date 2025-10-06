@@ -4,7 +4,7 @@
 
   <ItemGroup>
     <PackageVersion Include="Microsoft.Extensions.Hosting" Version="9.0.9" />
-    <PackageVersion Include="WpfHosting" Version="0.3.2" />
+    <PackageVersion Include="WpfHosting" Version="0.3.7" />
   </ItemGroup>
 
 </Project>
