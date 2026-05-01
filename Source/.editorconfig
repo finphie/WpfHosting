@@ -2,11 +2,23 @@
 
 ## Microsoft.CodeAnalysis.NetAnalyzers ##
 
+# URI パラメーターを文字列にすることはできません
+# https://learn.microsoft.com/dotnet/fundamentals/code-analysis/quality-rules/ca1054
+# 理由: Uri関連の拡張メソッドでは、文字列を使用する場合があるため。
+dotnet_code_quality.CA1054.excluded_type_names_with_derived_types = UriExtensions
+
 # インスタンス化されていない内部クラスを使用しません
 # https://learn.microsoft.com/dotnet/fundamentals/code-analysis/quality-rules/ca1812
 # 理由: Microsoft.Extensions.DependencyInjectionなどで、型をジェネリックとして使用すると誤検知するため。
 # https://github.com/dotnet/roslyn-analyzers/issues/6561
 dotnet_diagnostic.CA1812.severity = none
+
+## Microsoft.CodeAnalysis.Analyzer ##
+
+# コンパイラ拡張機能は、netstandard2.0 を対象とするアセンブリに実装する必要があります
+# https://github.com/dotnet/roslyn-analyzers/blob/main/docs/rules/RS1041.md
+# 理由: .NET Standard 2.0以外も対象としたいため。
+dotnet_diagnostic.RS1041.severity = none
 
 [*{Helpers,Extensions,Factory}.cs]
 
@@ -16,6 +28,17 @@ dotnet_diagnostic.CA1812.severity = none
 # https://learn.microsoft.com/dotnet/fundamentals/code-analysis/quality-rules/ca1812
 # 理由: 有効化したいクラスのため。
 dotnet_diagnostic.CA1812.severity = warning
+
+[*Extensions.cs]
+
+## Microsoft.CodeAnalysis.NetAnalyzers ##
+
+# 入れ子にされた型を参照可能にすることはできません
+# https://learn.microsoft.com/dotnet/fundamentals/code-analysis/quality-rules/ca1034
+# 理由: 拡張メンバーで誤検知するため。
+# https://github.com/dotnet/roslyn/issues/78858
+# https://github.com/dotnet/roslyn-analyzers/issues/7734
+dotnet_diagnostic.CA1034.severity = none
 
 [*{ViewModel,ViewModelBase}.cs]
 
@@ -34,13 +57,33 @@ dotnet_diagnostic.CA1708.severity = none
 # 理由: IDisposable.AddTo(ref DisposableBuilder)で誤検知するため。
 dotnet_diagnostic.IDISP003.severity = none
 
-# C#ベンチマークファイル（プロジェクト全体）
-[*.Benchmarks/**.cs]
+# ベンチマークやサンプルプロジェクト
+[*.{Benchmarks,Sample}/**.cs]
 
 # 公開されている型またはメンバー 'Type_or_Member' の XML コメントがありません
 # https://learn.microsoft.com/dotnet/csharp/language-reference/compiler-messages/cs1591
 # 理由: ドキュメンテーションコメントを使用しない。
 dotnet_diagnostic.CS1591.severity = none
+
+## StyleCop.Analyzers ##
+
+# A C# code element is missing a documentation header.
+# https://github.com/DotNetAnalyzers/StyleCopAnalyzers/blob/master/documentation/SA1600.md
+# 理由: ドキュメントヘッダーを使用しない。
+dotnet_diagnostic.SA1600.severity = none
+
+# A C# partial element is missing a documentation header.
+# https://github.com/DotNetAnalyzers/StyleCopAnalyzers/blob/master/documentation/SA1601.md
+# 理由: ドキュメンテーションコメントを使用しない。
+dotnet_diagnostic.SA1601.severity = none
+
+# An item within a C# enumeration is missing an Xml documentation header.
+# https://github.com/DotNetAnalyzers/StyleCopAnalyzers/blob/master/documentation/SA1602.md
+# 理由: ドキュメンテーションコメントを使用しない。
+dotnet_diagnostic.SA1602.severity = none
+
+# ベンチマークプロジェクト
+[*.Benchmarks/**.cs]
 
 ## Microsoft.CodeAnalysis.NetAnalyzers ##
 
@@ -86,21 +129,6 @@ dotnet_diagnostic.CA5394.severity = none
 # 理由: 警告抑制理由の表記は必要ない。
 dotnet_diagnostic.SA1404.severity = none
 
-# A C# code element is missing a documentation header.
-# https://github.com/DotNetAnalyzers/StyleCopAnalyzers/blob/master/documentation/SA1600.md
-# 理由: ドキュメントヘッダーを使用しない。
-dotnet_diagnostic.SA1600.severity = none
-
-# A C# partial element is missing a documentation header.
-# https://github.com/DotNetAnalyzers/StyleCopAnalyzers/blob/master/documentation/SA1601.md
-# 理由: ドキュメンテーションコメントを使用しない。
-dotnet_diagnostic.SA1601.severity = none
-
-# An item within a C# enumeration is missing an Xml documentation header.
-# https://github.com/DotNetAnalyzers/StyleCopAnalyzers/blob/master/documentation/SA1602.md
-# 理由: ドキュメンテーションコメントを使用しない。
-dotnet_diagnostic.SA1602.severity = none
-
 ## IDisposableAnalyzers ##
 
 # Prefer using
@@ -144,3 +172,12 @@ dotnet_diagnostic.SA1132.severity = none
 # https://github.com/DotNetAnalyzers/StyleCopAnalyzers/blob/master/documentation/SA1402.md
 # 理由: 1ファイルに収めたい場合がある。
 dotnet_diagnostic.SA1402.severity = none
+
+[*.Sample/Program.cs]
+
+## StyleCop.Analyzers ##
+
+# The file name of a C# code file does not match the first type declared in the file.
+# https://github.com/DotNetAnalyzers/StyleCopAnalyzers/blob/master/documentation/SA1649.md
+# 理由: 複数の型を定義したいため。
+dotnet_diagnostic.SA1649.severity = none
