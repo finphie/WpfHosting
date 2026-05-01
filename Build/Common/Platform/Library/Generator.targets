@@ -5,11 +5,23 @@
     <_IsGeneratorInternal>$(MSBuildProjectName.EndsWith('.Generator.Internal'))</_IsGeneratorInternal>
     <_MainLogicProjectName Condition="'$(_IsGeneratorInternal)' != 'true'">$(MSBuildProjectName.Substring(0, $(MSBuildProjectName.LastIndexOf('.Generator'))))</_MainLogicProjectName>
     <_MainLogicProjectName Condition="'$(_IsGeneratorInternal)' == 'true'">$(MSBuildProjectName.Substring(0, $(MSBuildProjectName.LastIndexOf('.Generator.Internal'))))</_MainLogicProjectName>
+    <_MainLogicProjectAssemblyFileName>$(_MainLogicProjectName).dll</_MainLogicProjectAssemblyFileName>
 
     <MainLogicProjectPath>$(SourceDirectory)$(_MainLogicProjectName)/$(_MainLogicProjectName).csproj</MainLogicProjectPath>
-    <MainLogicAssemblyPath>$(SourceDirectory)$(_MainLogicProjectName)/bin/$(Configuration)/netstandard2.0/$(_MainLogicProjectName).dll</MainLogicAssemblyPath>
-    <ExistsSourceGeneratorMainLogic Condition="Exists('$(MainLogicProjectPath)')">true</ExistsSourceGeneratorMainLogic>
+
+    <_BaseMainLogicProjectPath>$(ArtifactsPath)/bin/$(_MainLogicProjectName)/$(Configuration.ToLowerInvariant())</_BaseMainLogicProjectPath>
+    <MainLogicAssemblyPath>$(_BaseMainLogicProjectPath)/$(_MainLogicProjectAssemblyFileName)</MainLogicAssemblyPath>
+    <MainLogicAssemblyPathWithTargetFramework>$(_BaseMainLogicProjectPath)_net10.0/$(_MainLogicProjectAssemblyFileName)</MainLogicAssemblyPathWithTargetFramework>
   </PropertyGroup>
+
+  <ItemGroup>
+    <!--
+      公開用と内部用ライブラリの両方から参照する。
+      公開用はdllのパス取得のために必要、内部用は実際の処理で必要。
+    -->
+    <PackageReference Condition="'$(_IsGeneratorInternal)' != 'true'" Include="FToolkit.AnalyzerUtilities" IncludeAssets="None" PrivateAssets="All" GeneratePathProperty="true" />
+    <PackageReference Condition="'$(_IsGeneratorInternal)' == 'true'" Include="FToolkit.AnalyzerUtilities" PrivateAssets="All" GeneratePathProperty="true" />
+  </ItemGroup>
 
   <Import Condition="'$(_IsGeneratorInternal)' != 'true'" Project="$(_BuildCommonPlatformLibraryDirectory)Generator.Package.targets" />
   <Import Condition="'$(_IsGeneratorInternal)' == 'true'" Project="$(_BuildCommonPlatformLibraryDirectory)Generator.Internal.targets" />
